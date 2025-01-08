@@ -1,0 +1,2 @@
+Hypothesis:
+The data set I am working with is from a long-term agricultural study at Akron research station in Northeastern CO. I am focusing on analysis of yield vs. precip falling from July 16th to August 26th, split between years that had starting water + may precip >250 or <250mm. My hypothesis is that when a linear regression is performed between yield and precip between J16 and A26, there will be a high positive correlation because that period of rainfall is important for crop growth. 
