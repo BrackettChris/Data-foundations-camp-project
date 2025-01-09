@@ -1,12 +1,15 @@
 ```{r}
 library(tidyverse)
+#get csv of dataset
 ACR <-read_csv("~/GitHub/Data-foundations-camp-project/ACRPrecipVsYield.csv")
 view(ACR)
 ```
 
 ```{r}
+#create plot split by different start water amounts
 ggplot(data = ACR, mapping = aes(y = yield, x = J16.A26.precip, color = start.water))+
     geom_point(size = 2)+
+  #next line adds lines of best for each start water amount
     geom_smooth(method = "lm", se = FALSE)+
     theme_bw()+
     labs(
@@ -18,6 +21,7 @@ ggplot(data = ACR, mapping = aes(y = yield, x = J16.A26.precip, color = start.wa
 ```
 
 ```{r}
+#regression of all data points
 ACR.regress <- lm(data = ACR, formula = J16.A26.precip ~ yield * start.water)
 summary(ACR.regress)
 
@@ -25,6 +29,7 @@ summary(ACR.regress)
 ```
 
 ```{r}
+#this returns R^2 values for each of the lines of best fit for the graph above
 r_squared_values <- ACR %>%
   group_by(start.water) %>%
   do({
