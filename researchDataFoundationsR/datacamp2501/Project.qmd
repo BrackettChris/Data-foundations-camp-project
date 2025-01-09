@@ -1,0 +1,38 @@
+```{r}
+library(tidyverse)
+ACR <-read_csv("~/GitHub/Data-foundations-camp-project/ACRPrecipVsYield.csv")
+view(ACR)
+```
+
+```{r}
+ggplot(data = ACR, mapping = aes(y = yield, x = J16.A26.precip, color = start.water))+
+    geom_point(size = 2)+
+    geom_smooth(method = "lm", se = FALSE)+
+    theme_bw()+
+    labs(
+      x= "J16-A26 precip",
+      y= "yield",
+      title = "Precip J16-A26 vs. yield"
+    )
+
+```
+
+```{r}
+ACR.regress <- lm(data = ACR, formula = J16.A26.precip ~ yield * start.water)
+summary(ACR.regress)
+
+
+```
+
+```{r}
+r_squared_values <- ACR %>%
+  group_by(start.water) %>%
+  do({
+    model <- lm(J16.A26.precip ~ yield, data = .)  # Fit model for each level of start.water
+    r_squared <- summary(model)$r.squared  # Extract R-squared value
+    data.frame(start.water = unique(.$start.water), r_squared = r_squared)  # Return the result
+  })
+
+# Print the R-squared values for each start.water level
+print(r_squared_values)
+```

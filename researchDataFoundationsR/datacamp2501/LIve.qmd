@@ -1,0 +1,177 @@
+```{r}
+
+
+print("Hello World!")
+```
+
+```{r}
+#| label: calculator
+
+(2 + 3) * 5
+2^3
+2^3 / 3
+2+3*5
+329/64
+```
+
+
+```{r}
+#estimate eyes in zoom room
+
+num.per.animal <-2
+num.people <-20
+num.pets <-3
+
+total.eyes <- (num.people + num.pets) *num.per.animal
+total.eyes
+```
+
+```{r}
+#variable names
+
+two <- -1
+number <- 6
+number1 <-2
+
+two * number^number1
+```
+
+```{r}
+#packages
+
+library(tidyverse)
+
+
+```
+
+
+```{r}
+install.packages("fivethrityeight")
+```
+
+```{r}
+install.packages('fivethirtyeightdata', repos
+= 'https://fivethirtyeightdata.github.io/drat/', type = 'source')
+library(fivethirtyeight)
+births <- US_births_2000_2014
+```
+
+```{r}
+library(fivethirtyeight)
+
+```
+
+```{r}
+births<- US_births_2000_2014
+
+```
+
+```{r}
+class.first.names <- c("alfred", "grace","T")
+Class.last.names <- c("packer","Hopper", "Swift")
+
+Class.names <- paste(class.first.names, Class.last.names)
+Class.names
+```
+```{r}
+my.data <- c(1, 2, 3 , 4, 5)
+
+sample(my.data, size = 3)
+sample(my.data, size = 20, replace=TRUE)
+sample(my.data)
+```
+
+```{r}
+seq(0, 20, by = 2,)
+seq_len(18)
+seq(1,9, 2)
+seq.wence <- seq(1, 9, 2)
+sum(seq.wence)
+```
+
+
+```{r}
+births %>% select(date)
+select(births, date)
+```
+
+```{r}
+births <- births %>%
+  mutate(birth.count.z = (birth.count - mean(birth.count))/sd(birth.count))
+births
+```
+
+```{r}
+births <- births %>% mutate(is.warmer = between(month, 4, 9))
+births
+count()
+```
+
+```{r}
+ggplot(data = births, mapping = aes(y = birth.count, x = date, color = week_day) )+
+    geom_point(size = 2, alpha = 0.1)+
+    geom_smooth( method = "loess")+
+    theme_bw()+
+    labs(
+      x= "Date",
+      y= "Births Count",
+      title = "Births Over Time"
+    )
+
+ggsave("output/births.time.jpg")
+
+```
+
+```{r}
+ggplot(data = births, mapping = aes(y = birth.count, x = is.warmer) )+
+    geom_violin()+
+    theme_bw()+
+    labs(
+      x= "Warmer Month?",
+      y= "Births Count",
+      title = "Births during warmer months"
+    )
+
+```
+
+
+```{r}
+irises %>% filter( Species== "setosa")
+
+
+```
+```{r}
+pedal.model <-lm(data= irises, formula = Sepal.Length ~  Petal.Length)
+
+ggplot( data= irises, mapping = aes(x= Sepal.Length, y = Petal.Length)) +
+  geom_point() +
+  geom_line( mapping = aes( y = predict(pedal.model)))
+
+```
+```{r}
+wos <- wos.raw %>%
+  select(doc_id = 'UT (Unique WOS ID)' , text=Abstract, title='Article Title')
+
+```
+
+```{r}
+library(wordcloud2)
+```
+
+
+```{r}
+corpus <- Corpus( DataframeSource(wos) )
+```
+
+
+```{r}
+tdm <- TermDocumentMatrix(
+  corpus, 
+  control = list(
+    tolower = TRUE,
+    removePunctuation = TRUE,
+    #others,
+  )
+)
+
+```
